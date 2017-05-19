@@ -1,4 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Table from './table';
 
-ReactDOM.render(<div>Hello</div>, document.getElementById('app'));
+ReactDOM.render(<div><Table/></div>, document.getElementById('app'));
