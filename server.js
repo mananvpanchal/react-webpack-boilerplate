@@ -5,7 +5,6 @@ var config = require('./webpack.config');
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
-  inLine: true,
   historyApiFallback: true,
   contentBase:'./static',
   stats: {
