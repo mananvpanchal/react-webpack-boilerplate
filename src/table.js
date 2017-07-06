@@ -6,11 +6,11 @@ class Table extends React.Component {
 
   constructor() {
     super();
-    this.onClickInCell = this.onClickInCell.bind(this);
-    this.onDoubleClickInCell = this.onDoubleClickInCell.bind(this);
-    this.onKeyDownInCell = this.onKeyDownInCell.bind(this);
-    this.onMouseEnterInCell = this.onMouseEnterInCell.bind(this);
-    this.onMouseOutFromCell = this.onMouseOutFromCell.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.onDoubleClick = this.onDoubleClick.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.state = {
       mouseClicked: false, mouseDoubleClicked: false,
       keyDown: false, mouseEntered: false,
@@ -18,7 +18,8 @@ class Table extends React.Component {
     };
   }
 
-  onClickInCell(rowIdx, colIdx) {
+  onClick(rowIdx, colIdx) {
+    console.log('onClick', rowIdx, colIdx);
     this.setState(Object.assign({}, this.state, {
       mouseClicked: true, mouseDoubleClicked: false,
       keyDown: false, mouseEntered: false,
@@ -26,7 +27,7 @@ class Table extends React.Component {
     }))
   }
 
-  onDoubleClickInCell(rowIdx, colIdx) {
+  onDoubleClick(rowIdx, colIdx) {
     this.setState(Object.assign({}, this.state, {
       mouseClicked: false, mouseDoubleClicked: true,
       keyDown: false, mouseEntered: false,
@@ -34,7 +35,7 @@ class Table extends React.Component {
     }))
   }
 
-  onKeyDownInCell(rowIdx, colIdx) {
+  onKeyDown(rowIdx, colIdx) {
     this.setState(Object.assign({}, this.state, {
       mouseClicked: false, mouseDoubleClicked: false,
       keyDown: true, mouseEntered: false,
@@ -42,7 +43,7 @@ class Table extends React.Component {
     }))
   }
 
-  onMouseEnterInCell(rowIdx, colIdx) {
+  onMouseEnter(rowIdx, colIdx) {
     this.setState(Object.assign({}, this.state, {
       mouseClicked: false, mouseDoubleClicked: false,
       keyDown: false, mouseEntered: true,
@@ -50,7 +51,7 @@ class Table extends React.Component {
     }))
   }
 
-  onMouseOutFromCell(rowIdx, colIdx) {
+  onMouseOut(rowIdx, colIdx) {
     this.setState(Object.assign({}, this.state, {
       mouseClicked: false, mouseDoubleClicked: false,
       keyDown: false, mouseEntered: false,
@@ -60,17 +61,36 @@ class Table extends React.Component {
 
   render() {
     let eventListeners={
-      onClickInCell: this.onClickInCell,
-      onDoubleClickInCell: this.onDoubleClickInCell,
-      onKeyDownInCell: this.onKeyDownInCell,
-      onMouseEnterInCell: this.onMouseEnterInCell,
-      onMouseOutFromCell: this.onMouseOutFromCell
+      onClick: () => { this.onClick(); },
+      onDoubleClick: this.onDoubleClick,
+      onKeyDown: this.onKeyDown,
+      onMouseEnter: this.onMouseEnter,
+      onMouseOut: this.onMouseOut
     };
     return (
-      <table style={{ borderCollapse: "collapse" }} tabIndex={0}>
-        <TableHead state={this.state} eventListeners={eventListeners} headerRows={[["A", "B", "C", "D"]]}/>
-        <TableBody state={this.state} eventListeners={eventListeners}
-          rows={[["a", "b", "c", "d"], ["e", "f", "g", "h"], ["i", "j", "k", "l"]]}/>
+      <table style={{ borderCollapse: "collapse" }}>
+        <TableHead 
+          mouseClicked={this.state.mouseClicked} 
+          mouseDoubleClicked={this.state.mouseDoubleClicked}
+          keyDown={this.state.keyDown}
+          mouseEntered={this.state.mouseEntered}
+          mouseOut={this.state.mouseOut}
+          evtRowIdx={this.state.rowIdx}
+          evtColIdx={this.state.colIdx}
+          eventListeners={eventListeners} headerRows={[["A", "B", "C", "D"]]}
+        />
+        <TableBody 
+          mouseClicked={this.state.mouseClicked} 
+          mouseDoubleClicked={this.state.mouseDoubleClicked}
+          keyDown={this.state.keyDown}
+          mouseEntered={this.state.mouseEntered}
+          mouseOut={this.state.mouseOut}
+          evtRowIdx={this.state.rowIdx}
+          evtColIdx={this.state.colIdx}
+          eventListeners={eventListeners}
+          renderCell={this.props.renderCell}
+          rows={[["a", "b", "c", "d"], ["e", "f", "g", "h"], ["i", "j", "k", "l"]]}
+        />
       </table>
     );
   }
