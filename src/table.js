@@ -11,37 +11,51 @@ class Table extends React.Component {
     this.onKeyDownInCell = this.onKeyDownInCell.bind(this);
     this.onMouseEnterInCell = this.onMouseEnterInCell.bind(this);
     this.onMouseOutFromCell = this.onMouseOutFromCell.bind(this);
-    this.onMouseMoveInCell = this.onMouseMoveInCell.bind(this);
     this.state = {
       mouseClicked: false, mouseDoubleClicked: false,
       keyDown: false, mouseEntered: false,
-      mouseOut: false, mouseMove: false,
-      row: null, column: null
+      mouseOut: false, rowIdx: null, colIdx: null
     };
   }
 
-  onClickInCell(row, column) {
-    this.setState(Object.assign({}, this.state, { mouseClicked: true, row, column }))
+  onClickInCell(rowIdx, colIdx) {
+    this.setState(Object.assign({}, this.state, {
+      mouseClicked: true, mouseDoubleClicked: false,
+      keyDown: false, mouseEntered: false,
+      mouseOut: false, rowIdx, colIdx
+    }))
   }
 
-  onDoubleClickInCell(row, column) {
-
+  onDoubleClickInCell(rowIdx, colIdx) {
+    this.setState(Object.assign({}, this.state, {
+      mouseClicked: false, mouseDoubleClicked: true,
+      keyDown: false, mouseEntered: false,
+      mouseOut: false, rowIdx, colIdx
+    }))
   }
 
-  onKeyDownInCell(row, column) {
-
+  onKeyDownInCell(rowIdx, colIdx) {
+    this.setState(Object.assign({}, this.state, {
+      mouseClicked: false, mouseDoubleClicked: false,
+      keyDown: true, mouseEntered: false,
+      mouseOut: false, rowIdx, colIdx
+    }))
   }
 
-  onMouseEnterInCell(row, column) {
-
+  onMouseEnterInCell(rowIdx, colIdx) {
+    this.setState(Object.assign({}, this.state, {
+      mouseClicked: false, mouseDoubleClicked: false,
+      keyDown: false, mouseEntered: true,
+      mouseOut: false, rowIdx, colIdx
+    }))
   }
 
-  onMouseOutFromCell(row, column) {
-
-  }
-
-  onMouseMoveInCell(row, column) {
-
+  onMouseOutFromCell(rowIdx, colIdx) {
+    this.setState(Object.assign({}, this.state, {
+      mouseClicked: false, mouseDoubleClicked: false,
+      keyDown: false, mouseEntered: false,
+      mouseOut: true, rowIdx, colIdx
+    }))
   }
 
   render() {
@@ -50,8 +64,7 @@ class Table extends React.Component {
       onDoubleClickInCell: this.onDoubleClickInCell,
       onKeyDownInCell: this.onKeyDownInCell,
       onMouseEnterInCell: this.onMouseEnterInCell,
-      onMouseOutFromCell: this.onMouseOutFromCell,
-      onMouseMoveInCell: this.onMouseMoveInCell
+      onMouseOutFromCell: this.onMouseOutFromCell
     };
     return (
       <table style={{ borderCollapse: "collapse" }} tabIndex={0}>
