@@ -19,7 +19,6 @@ class Table extends React.Component {
   }
 
   onClick(rowIdx, colIdx) {
-    console.log('onClick', rowIdx, colIdx);
     this.setState(Object.assign({}, this.state, {
       mouseClicked: true, mouseDoubleClicked: false,
       keyDown: false, mouseEntered: false,
@@ -61,7 +60,7 @@ class Table extends React.Component {
 
   render() {
     let eventListeners={
-      onClick: () => { this.onClick(); },
+      onClick: this.onClick,
       onDoubleClick: this.onDoubleClick,
       onKeyDown: this.onKeyDown,
       onMouseEnter: this.onMouseEnter,

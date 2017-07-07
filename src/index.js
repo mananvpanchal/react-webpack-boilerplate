@@ -8,17 +8,22 @@ const renderCell = (eventListeners, rowIdx, colIdx, value,
   const style = { border: "1px solid black" };
   style.width='100px';
   style.height='30px';
-  console.log('render', mouseClicked, evtRowIdx, evtColIdx);
-  if(mouseEntered && rowIdx === evtRowIdx && colIdx === evtColIdx) {
-    //console.log('mouse entered');
-    style.backgroundColor = 'red';
+ /* if(keyDown && rowIdx === evtRowIdx && colIdx === evtColIdx) {
+    style.backgroundColor = 'yellow';
+  } else if(mouseDoubleClicked && rowIdx === evtRowIdx && colIdx === evtColIdx) {
+    style.backgroundColor = 'blue';
   } else if(mouseClicked && rowIdx === evtRowIdx && colIdx === evtColIdx) {
-    console.log('mouseClicked');
     style.backgroundColor = 'green';
-  } else {
-    style.backgroundColor = 'white';
-  }
-  return <td {...eventListeners} style={style} key={rowIdx+'-'+colIdx}>{value}</td>;
+  } else if(mouseEntered && rowIdx === evtRowIdx && colIdx === evtColIdx) {
+    style.backgroundColor = 'red';
+  }*/
+  if(mouseOut && rowIdx === evtRowIdx && colIdx === evtColIdx) {
+    console.log('mouseOut');
+    style.backgroundColor = 'red';
+  }// else {
+  //  style.backgroundColor = 'white';
+  //}
+  return <td tabIndex={1} {...eventListeners} style={style} key={rowIdx+'-'+colIdx}>{value}</td>;
 };
 
 ReactDOM.render(<div><Table renderCell={renderCell} /></div>, document.getElementById('app'));
