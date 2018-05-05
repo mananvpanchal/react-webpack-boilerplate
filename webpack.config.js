@@ -3,6 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   devtool: 'eval-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
@@ -14,7 +15,7 @@ module.exports = {
     publicPath: '/static/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         loaders: ['babel-loader'],
